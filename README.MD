@@ -1,0 +1,1 @@
+Phoca Cart Product Scroller Module is Joomla! CMS extension. Module which displays product scroll slider of Phoca Cart products.
