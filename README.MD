@@ -1,1 +1,67 @@
-Phoca Cart Product Scroller Module is Joomla! CMS extension. Module which displays product scroll slider of Phoca Cart products.
+
+
+
+
+![Phoca Cart Product Scroller Module](https://github.com/PhocaCz/PhocaCartProductScrollerModule/blob/master/mod_phocacart_product_scroller.png)
+
+# Phoca Cart Product Scroller Module
+
+
+
+Phoca Cart Product Scroller Module - a Joomla! CMS module which displays product scroll slider of Phoca Cart products.
+
+
+
+## Project page
+
+[Phoca Cart Product Scroller Module](https://www.phoca.cz/phoca-cart-product-scroller-module)
+
+[Phoca Cart Info Page](https://www.phoca.cz/project/phocacart-joomla-ecommerce)
+
+
+
+## Documentation
+
+[Documentation](https://www.phoca.cz/documentation/category/133-phoca-cart-product-scroller-module)
+
+
+
+## Support
+
+[Phoca Forum](https://www.phoca.cz/forum)
+
+:bell: [Phoca Forum RSS](https://www.phoca.cz/forum/app.php/feed)
+
+
+
+## News
+
+[Phoca News](https://www.phoca.cz/news)
+
+:bell: [Phoca News RSS](https://www.phoca.cz/news?format=feed&type=rss)
+
+:bell: [Phoca Latest Releases RSS](https://www.phoca.cz/download/feed/111?format=feed&type=rss)
+
+
+
+## Demo
+
+[Joomla! - Phoca Cart Demo](https://www.phoca.cz/phocacartdemo/)
+
+[Joomla! - Phoca Cart - Phoca Premiere Template Demo](https://www.phoca.cz/phocacartdemo/premiere/)
+
+
+
+## Version
+
+3.1.7
+
+
+
+## License
+
+GNU/GPL
+
+
+
+This project is open source project - feel free to contribute! Thank you.

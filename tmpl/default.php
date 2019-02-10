@@ -10,6 +10,8 @@ defined('_JEXEC') or die;
 
 $layoutV	= new JLayoutFile('button_product_view', null, array('component' => 'com_phocacart'));
 $layoutP	= new JLayoutFile('product_price', null, array('component' => 'com_phocacart'));
+$layoutR	= new JLayoutFile('product_rating', null, array('component' => 'com_phocacart'));
+
 
 echo '<div class="ph-product-scroller-module-box'.$moduleclass_sfx .'">';
 
@@ -43,6 +45,15 @@ echo '</a>';
 echo '<div class="caption">';
 echo '<h3>'.$v->title.'</h3>';
 
+// REVIEW - STAR RATING
+if ((int)$pc['display_star_rating'] > 0) {
+	$d							= array();
+	$d['rating']				= isset($v->rating) && (int)$v->rating > 0 ? (int)$v->rating : 0;
+	$d['size']					= 16;
+	$d['display_star_rating']	= (int)$pc['display_star_rating'];
+	echo $layoutR->render($d);
+}
+
 // Description box will be displayed even no description is set - to set height and have all columns same height
 echo '<div class="ph-item-desc">';
 if ($v->description != '' && (int)$p['display_product_description'] > 0) {
@@ -72,6 +83,8 @@ if ($p['hide_price'] != 1) {
 	// Move product discount prices to new variable (product price -> product discount -> product discount cart)
 	$d['priceitemsdiscountcart']	= $d['priceitemsdiscount'];
 	$d['discountcart']				= PhocacartDiscountCart::getCartDiscountPriceForProduct($v->id, $v->catid, $d['priceitemsdiscountcart']);
+	
+	$d['zero_price']		= 1;// Apply zero price if possible
 	echo $layoutP->render($d);
 }
 

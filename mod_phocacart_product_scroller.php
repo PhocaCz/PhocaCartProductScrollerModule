@@ -24,7 +24,7 @@ $lang->load('com_phocacart');
 
 $document = JFactory::getDocument();
 $media = new PhocacartRenderMedia();
-$media->loadSwiper();
+
 
 $p['item_ordering']					= $params->get( 'item_ordering', 1 );
 $p['item_limit']					= $params->get( 'item_limit', 1 );
@@ -35,13 +35,27 @@ $p['featured_only']					= $params->get( 'featured_only', 0 );
 //$p['stock_checking']				= $params->get( 'stock_checking', 0 );// in module display all products
 $p['display_product_description']	= $params->get( 'display_product_description', 0 );
 //$p['module_description']			= $params->get( 'module_description', '' );
-
+$p['load_swiper_library']			= $params->get( 'load_swiper_library', 1 );
+$p['transition_speed']		= $params->get( 'transition_speed', 1500 );
 $p['slides_per_view']		= $params->get( 'slides_per_view', 5 );
 $p['display_pagination']	= $params->get( 'display_pagination', 1 );
 $p['display_navigation']	= $params->get( 'display_navigation', 1 );
 $p['autoplay_delay']		= $params->get( 'autoplay_delay', 0 );
 $p['navigation_top']		= $params->get( 'navigation_top', 0 );
+
+$p['slides_per_view_576']		= $params->get( 'slides_per_view_576', 1 );
+$p['slides_per_view_768']		= $params->get( 'slides_per_view_768', 2 );
+$p['slides_per_view_992']		= $params->get( 'slides_per_view_992', 4 );
+
+$pCom								= JComponentHelper::getParams( 'com_phocacart' );
+$pc['display_star_rating']			= $pCom->get( 'display_star_rating', 0 );
+
 $moduleclass_sfx 			= htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
+
+if ($p['load_swiper_library'] == 1) {
+	$media->loadSwiper();	
+}
+
 
 $i	= 'ph-mod-product-scroller';
 $k	= str_replace('-', '', $i);
@@ -53,7 +67,9 @@ $p['navigation_top'] = $p['navigation_top'];
 $mt	= 22 + ($p['display_pagination'] == 1 ? 15 : 0) + (int)$p['navigation_top'];// Minus Margin Top for arrows (22 is half of height of the arrow)
 $s   = array();
 
-$s[] = 'jQuery(document).ready(function(){';
+//$s[] = 'jQuery(document).ready(function(){';
+$s[] = ' ';
+$s[] = 'jQuery(window).load(function(){';
 $s[] = '   jQuery("'.$c.'").each(function( i ) {';
 
 $s[] = '      var swiper = new Swiper(jQuery("'.$c.'")[i], {';
@@ -65,8 +81,9 @@ if ($p['autoplay_delay'] > 0) {
 	$s[] = '           },';
 }
 
+$s[] = '         speed: '.(int)$p['transition_speed'].',';
 $s[] = '         spaceBetween: 30,';
-$s[] = '         autoHeight: true,';
+$s[] = '         autoHeight: false,';
 $s[] = '         freeMode: true,';
 
 if ($p['display_navigation'] == 1) {
@@ -83,6 +100,39 @@ if ($p['display_pagination'] == 1) {
 	$s[] = '         },';
 }
 
+if ((int)$p['slides_per_view_576'] > 0 || (int)$p['slides_per_view_768'] > 0 || (int)$p['slides_per_view_992'] > 0) {
+	
+	$comma = 0;
+	$s[] = '		breakpoints: {';
+	
+	if ((int)$p['slides_per_view_576'] > 0) {
+		$s[] = '			576: {';
+		$s[] = '				slidesPerView: '.(int)$p['slides_per_view_576'].',';
+		$s[] = '				spaceBetween: 10';
+		$s[] = '			}';
+		$comma = 1;
+    }
+	if ((int)$p['slides_per_view_768'] > 0) {
+		if ($comma) { $s[] = '			,';}
+		$s[] = '			768: {';
+		$s[] = '				slidesPerView: '.(int)$p['slides_per_view_768'].',';
+		$s[] = '				spaceBetween: 15';
+		$s[] = '			}';
+		$comma = 1;
+    }
+	if ((int)$p['slides_per_view_992'] > 0) {
+		if ($comma) { $s[] = '			,';}
+		$s[] = '			992: {';
+		$s[] = '				slidesPerView: '.(int)$p['slides_per_view_992'].',';
+		$s[] = '				spaceBetween: 20';
+		$s[] = '			}';
+		//$comma = 1;
+    }
+	
+	$s[] = '		}';	
+}
+
+
 $s[] = '      });';
 $s[] = '   });';// each
 
@@ -94,6 +144,7 @@ if ($p['display_navigation'] == 1) {
 }
 
 $s[] = '})';
+$s[] = ' ';
 
 $document->addScriptDeclaration(implode("\n", $s));
 
