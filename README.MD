@@ -54,7 +54,7 @@ Phoca Cart Product Scroller Module - a Joomla! CMS module which displays product
 
 ## Version
 
-3.1.9
+3.2.0
 
 
 

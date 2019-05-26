@@ -19,14 +19,14 @@ echo '<div class="swiper-container ph-mod-product-scroller-swiper-container">
     <div class="swiper-wrapper ph-mod-product-scroller-swiper-wrapper">';
 if (!empty($products)) {
 	foreach ($products as $k => $v) {
-		
+
 		echo '<div class="swiper-slide ph-mod-product-scroller-swiper-slide">';
 		/*if ($v->image != '') {
 			echo '<div class="ph-brand-name"><img src="'.JURI::base(true).'/' . $v->image.'" alt="'.htmlspecialchars($v->title).'" /></div>';
 		} else {
 			echo '<div class="ph-brand-name">'.$v->title.'</div>';
 		}*/
-		
+
 // START PRODUCT
 echo '<div class="ph-item-box">';
 echo '<div class="thumbnail ph-thumbnail">';
@@ -62,7 +62,7 @@ if ($v->description != '' && (int)$p['display_product_description'] > 0) {
 echo '</div>';// end desc
 
 // :L: PRICE
-if ($p['hide_price'] != 1) {
+if ($this->t['can_display_price']) {
 	$price 				= new PhocacartPrice;
 	$d					= array();
 	$d['priceitems']	= $price->getPriceItems($v->price, $v->taxid, $v->taxrate, $v->taxcalculationtype, $v->taxtitle, $v->unit_amount, $v->unit_unit, 1, 1, $v->group_price);
@@ -73,17 +73,17 @@ if ($p['hide_price'] != 1) {
 	$d['class']			= 'ph-category-price-box';// we need the same class as category or items view
 	$d['product_id']	= (int)$v->id;
 	$d['typeview']		= 'Module';
-	
+
 	// Display discount price
 	// Move standard prices to new variable (product price -> product discount)
 	$d['priceitemsdiscount']		= $d['priceitems'];
 	$d['discount'] 					= PhocacartDiscountProduct::getProductDiscountPrice($v->id, $d['priceitemsdiscount']);
-	
+
 	// Display cart discount (global discount) in product views - under specific conditions only
 	// Move product discount prices to new variable (product price -> product discount -> product discount cart)
 	$d['priceitemsdiscountcart']	= $d['priceitemsdiscount'];
 	$d['discountcart']				= PhocacartDiscountCart::getCartDiscountPriceForProduct($v->id, $v->catid, $d['priceitemsdiscountcart']);
-	
+
 	$d['zero_price']		= 1;// Apply zero price if possible
 	echo $layoutP->render($d);
 }
@@ -105,14 +105,14 @@ echo '<div class="clearfix"></div>';
 
 echo '</div>';// end caption
 echo '</div>';// end thumbnail
-echo '</div>';// end ph-item-box	
-// END PRODUCT		
-		
-		
-		
-		
-		
-		
+echo '</div>';// end ph-item-box
+// END PRODUCT
+
+
+
+
+
+
 		echo '</div>';
 	}
 	//echo '<div class="ph-cb"></div>';

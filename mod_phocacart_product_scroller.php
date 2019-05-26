@@ -6,7 +6,7 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- 
+
 defined('_JEXEC') or die;// no direct access
 
 if (!JComponentHelper::isEnabled('com_phocacart', true)) {
@@ -50,10 +50,16 @@ $p['slides_per_view_992']		= $params->get( 'slides_per_view_992', 4 );
 $pCom								= JComponentHelper::getParams( 'com_phocacart' );
 $pc['display_star_rating']			= $pCom->get( 'display_star_rating', 0 );
 
+$rights							= new PhocacartAccessRights();
+$this->t['can_display_price']	= $rights->canDisplayPrice();
+if ($p['hide_price'] == 1) {
+    $this->t['can_display_price'] = false;// override the component rights
+}
+
 $moduleclass_sfx 			= htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
 
 if ($p['load_swiper_library'] == 1) {
-	$media->loadSwiper();	
+	$media->loadSwiper();
 }
 
 
@@ -101,10 +107,10 @@ if ($p['display_pagination'] == 1) {
 }
 
 if ((int)$p['slides_per_view_576'] > 0 || (int)$p['slides_per_view_768'] > 0 || (int)$p['slides_per_view_992'] > 0) {
-	
+
 	$comma = 0;
 	$s[] = '		breakpoints: {';
-	
+
 	if ((int)$p['slides_per_view_576'] > 0) {
 		$s[] = '			576: {';
 		$s[] = '				slidesPerView: '.(int)$p['slides_per_view_576'].',';
@@ -128,8 +134,8 @@ if ((int)$p['slides_per_view_576'] > 0 || (int)$p['slides_per_view_768'] > 0 || 
 		$s[] = '			}';
 		//$comma = 1;
     }
-	
-	$s[] = '		}';	
+
+	$s[] = '		}';
 }
 
 
