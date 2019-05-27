@@ -62,7 +62,7 @@ if ($v->description != '' && (int)$p['display_product_description'] > 0) {
 echo '</div>';// end desc
 
 // :L: PRICE
-if ($this->t['can_display_price']) {
+if ($p['can_display_price']) {
 	$price 				= new PhocacartPrice;
 	$d					= array();
 	$d['priceitems']	= $price->getPriceItems($v->price, $v->taxid, $v->taxrate, $v->taxcalculationtype, $v->taxtitle, $v->unit_amount, $v->unit_unit, 1, 1, $v->group_price);
