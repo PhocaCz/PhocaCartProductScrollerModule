@@ -29,25 +29,27 @@ if (!empty($products)) {
 
 // START PRODUCT
 echo '<div class="ph-item-box">';
-echo '<div class="thumbnail ph-thumbnail">';
+echo '<div class="'.$s['c']['thumbnail'].' ph-thumbnail">';
+//echo '<div class="ph-item-content">';
 
 $image = PhocacartImage::getThumbnailName($t['pathitem'], $v->image, 'medium');
 $link = JRoute::_(PhocacartRoute::getItemRoute($v->id, $v->catid, $v->alias, $v->catalias));
 echo '<a href="'.$link.'">';
 if (isset($image->rel) && $image->rel != '') {
-	echo '<img src="'.JURI::base(true).'/'.$image->rel.'" alt="" class="img-responsive ph-image"';
+	echo '<img src="'.JURI::base(true).'/'.$image->rel.'" alt="" class="'.$s['c']['img-responsive'].' ph-image"';
 	echo ' />';
 }
 echo '</a>';
 
 
 // CAPTION, DESCRIPTION
-echo '<div class="caption">';
+echo '<div class="'.$s['c']['caption'].'">';
 echo '<h3>'.$v->title.'</h3>';
 
 // REVIEW - STAR RATING
 if ((int)$pc['display_star_rating'] > 0) {
 	$d							= array();
+	$d['s']                     = $s;
 	$d['rating']				= isset($v->rating) && (int)$v->rating > 0 ? (int)$v->rating : 0;
 	$d['size']					= 16;
 	$d['display_star_rating']	= (int)$pc['display_star_rating'];
@@ -65,6 +67,7 @@ echo '</div>';// end desc
 if ($p['can_display_price']) {
 	$price 				= new PhocacartPrice;
 	$d					= array();
+	$d['s']             = $s;
 	$d['priceitems']	= $price->getPriceItems($v->price, $v->taxid, $v->taxrate, $v->taxcalculationtype, $v->taxtitle, $v->unit_amount, $v->unit_unit, 1, 1, $v->group_price);
 	$d['priceitemsorig']= array();
 	if ($v->price_original != '' && $v->price_original > 0) {
@@ -94,6 +97,7 @@ echo '<div class="ph-category-add-to-cart-box">';
 // :L: LINK TO PRODUCT VIEW
 if ((int)$p['display_view_product_button'] > 0) {
 	$d									= array();
+	$d['s']                             = $s;
 	$d['link']							= $link;
 	$d['display_view_product_button'] 	= $p['display_view_product_button'];
 	echo $layoutV->render($d);
@@ -101,9 +105,10 @@ if ((int)$p['display_view_product_button'] > 0) {
 
 
 echo '</div>';// end add to cart box
-echo '<div class="clearfix"></div>';
+echo '<div class="ph-cb"></div>';
 
 echo '</div>';// end caption
+//echo '</div>';// end content
 echo '</div>';// end thumbnail
 echo '</div>';// end ph-item-box
 // END PRODUCT
