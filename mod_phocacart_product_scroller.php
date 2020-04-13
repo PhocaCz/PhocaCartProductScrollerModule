@@ -23,7 +23,7 @@ $lang = JFactory::getLanguage();
 $lang->load('com_phocacart');
 
 $document = JFactory::getDocument();
-$media = new PhocacartRenderMedia();
+$media = PhocacartRenderMedia::getInstance('main');
 $media->loadBase();
 $media->loadBootstrap();
 $media->loadSpec();
@@ -79,7 +79,8 @@ $sa   = array();
 
 //$sa[] = 'jQuery(document).ready(function(){';
 $sa[] = ' ';
-$sa[] = 'jQuery(window).load(function(){';
+//$sa[] = 'jQuery(window).load(function(){';
+$sa[] = 'jQuery(window).on(\'load\', function(){';
 $sa[] = '   jQuery("'.$c.'").each(function( i ) {';
 
 $sa[] = '      var swiper = new Swiper(jQuery("'.$c.'")[i], {';
