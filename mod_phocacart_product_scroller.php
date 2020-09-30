@@ -166,5 +166,5 @@ $products			= PhocacartProduct::getProducts(0, $p['item_limit'], $p['item_orderi
 $t['pathitem'] 		= PhocacartPath::getPath('productimage');
 
 
-require(JModuleHelper::getLayoutPath('mod_phocacart_product_scroller'));
+require(JModuleHelper::getLayoutPath('mod_phocacart_product_scroller', $params->get('layout', 'default')));
 ?>
