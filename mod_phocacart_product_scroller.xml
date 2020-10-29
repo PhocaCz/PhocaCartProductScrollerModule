@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade" version="3.9">
 	<name>mod_phocacart_product_scroller</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>30/09/2020</creationDate>
+	<creationDate>29/10/2020</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
