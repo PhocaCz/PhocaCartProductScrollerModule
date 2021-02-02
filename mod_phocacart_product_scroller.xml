@@ -2,12 +2,12 @@
 <extension type="module" client="site" method="upgrade" version="3.9">
 	<name>mod_phocacart_product_scroller</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>29/10/2020</creationDate>
+	<creationDate>01/02/2021</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.5.4</version>
+	<version>3.5.5</version>
 	<description>MOD_PHOCACART_PRODUCT_SCROLLER_DESCRIPTION</description>
 	<projectName>PhocaCartProductScrollerModule</projectName>
 
@@ -83,7 +83,10 @@
                 <field name="display_navigation" type="list" default="1" label="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_DISPLAY_NAVIGATION_LABEL" description="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_DISPLAY_NAVIGATION_DESC">
                     <option value="1">MOD_PHOCACART_PRODUCT_SCROLLER_YES</option>
                     <option value="0">MOD_PHOCACART_PRODUCT_SCROLLER_NO</option>
+					<option value="2">MOD_PHOCACART_PRODUCT_SCROLLER_YES_BLACK_COLOR</option>
+					<option value="3">MOD_PHOCACART_PRODUCT_SCROLLER_YES_WHITE_COLOR</option>
                 </field>
+				
                 <field name="navigation_top" default="0" size="10" type="text" label="MOD_PHOCACART_PRODUCT_SCROLLER_NAVIGATION_INCREASE_TOP_POSITION_LABEL" description="MOD_PHOCACART_PRODUCT_SCROLLER_NAVIGATION_INCREASE_TOP_POSITION_DESC"/>
 
                 <field name="display_pagination" type="list" default="1" label="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_DISPLAY_PAGINATION_LABEL" description="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_DISPLAY_NAVIGATION_LABEL">
@@ -95,8 +98,6 @@
 
                 <field name="transition_speed" default="1500" size="10" type="text" label="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_SLIDESHOW_TRANSITION_SPEED_LABEL" description="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_SLIDESHOW_TRANSITION_SPEED_DESC"/>
 
-                <field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
-
                 <field name="load_swiper_library" type="radio" class="btn-group btn-group-yesno" default="1" label="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_LOAD_SWIPER_LIBRARY_LABEL" description="MOD_PHOCACART_PRODUCT_SCROLLER_FIELD_LOAD_SWIPER_LIBRARY_DESC">
                     <option value="1">MOD_PHOCACART_PRODUCT_SCROLLER_YES</option>
                     <option value="0">MOD_PHOCACART_PRODUCT_SCROLLER_NO</option>
@@ -104,9 +105,16 @@
 
             </fieldset>
 			<fieldset name="advanced">
-			
-			<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC"/>
-
+				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC"/>
+				<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+				<field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC" default="1" filter="integer">
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+				<field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" default="900" filter="integer"/>
+				<field name="cachemode" type="hidden" default="static">
+					<option value="static"/>
+				</field>
             </fieldset>
         </fields>
     </config>

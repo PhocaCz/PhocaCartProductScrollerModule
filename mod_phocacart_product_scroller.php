@@ -97,7 +97,7 @@ $sa[] = '         spaceBetween: 30,';
 $sa[] = '         autoHeight: false,';
 $sa[] = '         freeMode: true,';
 
-if ($p['display_navigation'] == 1) {
+if ((int)$p['display_navigation'] > 0) {
 	$sa[] = '         navigation: {';
 	$sa[] = '            nextEl: jQuery(".swiper-button-next'.$bn.'")[i],';
 	$sa[] = '            prevEl: jQuery(".swiper-button-prev'.$bp.'")[i],';
@@ -147,7 +147,7 @@ if ((int)$p['slides_per_view_576'] > 0 || (int)$p['slides_per_view_768'] > 0 || 
 $sa[] = '      });';
 $sa[] = '   });';// each
 
-if ($p['display_navigation'] == 1) {
+if ((int)$p['display_navigation'] > 0) {
 	$sa[] = '   var height'.$k.' = jQuery("'.$c.'").height();';
 	$sa[] = '   var height'.$k.'h = (height'.$k.' / 2) + '.$mt.';';
 	$sa[] = '   jQuery("'.$bn.'").css("margin-top", "-"+height'.$k.'h+"px");';

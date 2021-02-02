@@ -29,8 +29,8 @@ if (!empty($products)) {
 
 // START PRODUCT
 echo '<div class="ph-item-box">';
-echo '<div class="'.$s['c']['thumbnail'].' ph-thumbnail">';
-//echo '<div class="ph-item-content">';
+echo '<div class="'.$s['c']['thumbnail'].' ph-thumbnail ph-thumbnail-c ph-item grid">';
+echo '<div class="ph-item-content grid">';
 
 $image = PhocacartImage::getThumbnailName($t['pathitem'], $v->image, 'medium');
 $link = JRoute::_(PhocacartRoute::getItemRoute($v->id, $v->catid, $v->alias, $v->catalias));
@@ -43,7 +43,7 @@ echo '</a>';
 
 
 // CAPTION, DESCRIPTION
-echo '<div class="'.$s['c']['caption'].'">';
+//echo '<div class="'.$s['c']['caption'].'">';
 echo '<h3>'.$v->title.'</h3>';
 
 // REVIEW - STAR RATING
@@ -105,10 +105,10 @@ if ((int)$p['display_view_product_button'] > 0) {
 
 
 echo '</div>';// end add to cart box
-echo '<div class="ph-cb"></div>';
+//echo '<div class="ph-cb"></div>';
 
-echo '</div>';// end caption
-//echo '</div>';// end content
+//echo '</div>';// end caption
+echo '</div>';// end content
 echo '</div>';// end thumbnail
 echo '</div>';// end ph-item-box
 // END PRODUCT
@@ -135,9 +135,17 @@ if ($p['display_pagination'] == 1) {
 echo '</div>';// end container
 
 // ARROWS MOVED OUTSIDE CONTAINER
-if ($p['display_navigation'] == 1) {
-	echo '<div class="swiper-button-next ph-mod-product-scroller-swiper-button-next"></div>';
-	echo '<div class="swiper-button-prev ph-mod-product-scroller-swiper-button-prev"></div>';
+if ((int)$p['display_navigation'] > 0) {
+	
+	$buttonClass = '';
+	if ($p['display_navigation'] == 2) {
+		$buttonClass = ' swiper-button-black';
+	} else if ($p['display_navigation'] == 3) {
+		$buttonClass = ' swiper-button-white';
+	}
+	
+	echo '<div class="swiper-button-next'.$buttonClass.' ph-mod-product-scroller-swiper-button-next"></div>';
+	echo '<div class="swiper-button-prev'.$buttonClass.' ph-mod-product-scroller-swiper-button-prev"></div>';
 	echo '<div class="clear-fix"></div>';
 }
 echo '</div>';// end module box

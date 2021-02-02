@@ -2,7 +2,7 @@
 
 
 
-![Phoca Cart Product Scroller Module](https://github.com/PhocaCz/PhocaCartProductScrollerModule/blob/master/mod_phocacart_product_scroller.png)
+![Phoca Cart Product Scroller Module](https://github.com/PhocaCz/PhocaCartProductScrollerModule/blob/master/mod_phocacart_product_scroller.png?raw=true)
 
 # Phoca Cart Product Scroller Module
 
@@ -56,7 +56,7 @@ Phoca Cart Product Scroller Module - a Joomla! CMS module which displays product
 
 ## Version
 
-3.5.4
+3.5.5
 
 
 
