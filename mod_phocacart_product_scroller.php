@@ -159,10 +159,8 @@ $sa[] = ' ';
 
 $document->addScriptDeclaration(implode("\n", $sa));
 
-
-
 // TO DO - the following function can check publish, stock, price - this can be added to the parameters
-$products			= PhocacartProduct::getProducts(0, $p['item_limit'], $p['item_ordering'], 0, true, false, false, 0, $p['catid_multiple'], $p['featured_only']);
+$products			= PhocacartProduct::getProducts(0, $p['item_limit'], $p['item_ordering'], 0, true, false, false, 0, $p['catid_multiple'], $p['featured_only'], array(0,1), '', '', true);
 $t['pathitem'] 		= PhocacartPath::getPath('productimage');
 
 

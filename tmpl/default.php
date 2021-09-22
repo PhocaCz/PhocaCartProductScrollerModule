@@ -36,7 +36,7 @@ $image = PhocacartImage::getThumbnailName($t['pathitem'], $v->image, 'medium');
 $link = JRoute::_(PhocacartRoute::getItemRoute($v->id, $v->catid, $v->alias, $v->catalias));
 echo '<a href="'.$link.'">';
 if (isset($image->rel) && $image->rel != '') {
-	echo '<img src="'.JURI::base(true).'/'.$image->rel.'" alt="" class="'.$s['c']['img-responsive'].' ph-image"';
+	echo '<img src="'.JURI::base(true).'/'.$image->rel.'" alt="'.$v->title.'" class="'.$s['c']['img-responsive'].' ph-image"';
 	echo ' />';
 }
 echo '</a>';
