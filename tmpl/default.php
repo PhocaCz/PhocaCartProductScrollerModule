@@ -13,14 +13,15 @@ $layoutP	= new JLayoutFile('product_price', null, array('component' => 'com_phoc
 $layoutR	= new JLayoutFile('product_rating', null, array('component' => 'com_phocacart'));
 
 
-echo '<div class="ph-product-scroller-module-box'.$moduleclass_sfx .'">';
+echo '<div class="phProductScrollerModuleBox ph-product-scroller-module-box'.$moduleclass_sfx .'">';
 
-echo '<div class="swiper-container ph-mod-product-scroller-swiper-container">
-    <div class="swiper-wrapper ph-mod-product-scroller-swiper-wrapper">';
+echo '<div class="swiper-container '.$uniqueId.'">';// ph-mod-product-scroller-swiper-container
+echo '<div class="swiper">';// ph-mod-product-scroller-swiper
+echo '<div class="swiper-wrapper">';// ph-mod-product-scroller-swiper-wrapper
 if (!empty($products)) {
 	foreach ($products as $k => $v) {
 
-		echo '<div class="swiper-slide ph-mod-product-scroller-swiper-slide">';
+		echo '<div class="swiper-slide">';// ph-mod-product-scroller-swiper-slide
 		/*if ($v->image != '') {
 			echo '<div class="ph-brand-name"><img src="'.JURI::base(true).'/' . $v->image.'" alt="'.htmlspecialchars($v->title).'" /></div>';
 		} else {
@@ -68,14 +69,14 @@ if ($p['can_display_price']) {
 	$price 				= new PhocacartPrice;
 	$d					= array();
 	$d['s']             = $s;
-	$d['priceitems']	= $price->getPriceItems($v->price, $v->taxid, $v->taxrate, $v->taxcalculationtype, $v->taxtitle, $v->unit_amount, $v->unit_unit, 1, 1, $v->group_price);
+	$d['priceitems']	= $price->getPriceItems($v->price, $v->taxid, $v->taxrate, $v->taxcalculationtype, $v->taxtitle, $v->unit_amount, $v->unit_unit, 1, 1, $v->group_price, $v->taxhide);
 	$d['priceitemsorig']= array();
 	if ($v->price_original != '' && $v->price_original > 0) {
-		$d['priceitemsorig'] = $price->getPriceItems($v->price_original, $v->taxid, $v->taxrate, $v->taxcalculationtype);
+		$d['priceitemsorig'] = $price->getPriceItems($v->price_original, $v->taxid, $v->taxrate, $v->taxcalculationtype, '', 0, '', 0, 1, null, $v->taxhide);
 	}
 	$d['class']			= 'ph-category-price-box';// we need the same class as category or items view
 	$d['product_id']	= (int)$v->id;
-	$d['typeview']		= 'Module';
+	$d['typeview']		= 'Module' . (int)$module->id . 'P';
 
 	// Display discount price
 	// Move standard prices to new variable (product price -> product discount)
@@ -130,23 +131,27 @@ echo '</div>';// end wrapper
 //echo '<div class="swiper-button-prev ph-mod-product-scroller-swiper-button-prev"></div>';
 // PAGINATION
 if ($p['display_pagination'] == 1) {
-	echo '<div class="swiper-pagination ph-mod-product-scroller-swiper-pagination"></div>';
+	echo '<div class="swiper-pagination"></div>';//ph-mod-product-scroller-swiper-pagination
 }
-echo '</div>';// end container
 
 // ARROWS MOVED OUTSIDE CONTAINER
 if ((int)$p['display_navigation'] > 0) {
-	
+
 	$buttonClass = '';
 	if ($p['display_navigation'] == 2) {
 		$buttonClass = ' swiper-button-black';
 	} else if ($p['display_navigation'] == 3) {
 		$buttonClass = ' swiper-button-white';
 	}
-	
-	echo '<div class="swiper-button-next'.$buttonClass.' ph-mod-product-scroller-swiper-button-next"></div>';
-	echo '<div class="swiper-button-prev'.$buttonClass.' ph-mod-product-scroller-swiper-button-prev"></div>';
-	echo '<div class="clear-fix"></div>';
+
+	echo '<div class="swiper-button-next'.$buttonClass.'"></div>';//ph-mod-product-scroller-swiper-button-next
+	echo '<div class="swiper-button-prev'.$buttonClass.'"></div>';//ph-mod-product-scroller-swiper-button-prev
+	//echo '<div class="clear-fix"></div>';
 }
+
+
+echo '</div>';// end swiper
+echo '</div>';// end container
+
 echo '</div>';// end module box
 ?>

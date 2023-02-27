@@ -41,15 +41,15 @@ $p['display_product_description']	= $params->get( 'display_product_description',
 //$p['module_description']			= $params->get( 'module_description', '' );
 $p['load_swiper_library']			= $params->get( 'load_swiper_library', 1 );
 $p['transition_speed']		= $params->get( 'transition_speed', 1500 );
-$p['slides_per_view']		= $params->get( 'slides_per_view', 5 );
+$p['slides_per_view']		= $params->get( 'slides_per_view', 1 );
 $p['display_pagination']	= $params->get( 'display_pagination', 1 );
 $p['display_navigation']	= $params->get( 'display_navigation', 1 );
 $p['autoplay_delay']		= $params->get( 'autoplay_delay', 0 );
 $p['navigation_top']		= $params->get( 'navigation_top', 0 );
 
-$p['slides_per_view_576']		= $params->get( 'slides_per_view_576', 1 );
-$p['slides_per_view_768']		= $params->get( 'slides_per_view_768', 2 );
-$p['slides_per_view_992']		= $params->get( 'slides_per_view_992', 4 );
+$p['slides_per_view_576']		= $params->get( 'slides_per_view_576', 2 );
+$p['slides_per_view_768']		= $params->get( 'slides_per_view_768', 4 );
+$p['slides_per_view_992']		= $params->get( 'slides_per_view_992', 5 );
 
 $pCom								= JComponentHelper::getParams( 'com_phocacart' );
 $pc['display_star_rating']			= $pCom->get( 'display_star_rating', 0 );
@@ -60,19 +60,21 @@ if ($p['hide_price'] == 1) {
     $p['can_display_price'] = false;// override the component rights
 }
 
-$moduleclass_sfx 			= htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
+$moduleclass_sfx 			= htmlspecialchars((string)$params->get('moduleclass_sfx', ''), ENT_COMPAT, 'UTF-8');
 
 if ($p['load_swiper_library'] == 1) {
 	$media->loadSwiper();
 }
 
 
-$i	= 'ph-mod-product-scroller';
-$k	= str_replace('-', '', $i);
-$c	= '.'.$i.'-swiper-container';
-$bn	= '.'.$i.'-swiper-button-next';
-$bp	= '.'.$i.'-swiper-button-prev';
-$pg	= '.'.$i.'-swiper-pagination';
+//$i	= 'ph-mod-product-scroller';
+//$k	= str_replace('-', '', $i);
+
+$uniqueId = 'phProductScrollerModuleSwiperContainer'.$module->id;
+$c	= '.'.$uniqueId.' .swiper';
+$bn	= '.'.$uniqueId.' .swiper-button-next';
+$bp	= '.'.$uniqueId.' .swiper-button-prev';
+$pg	= '.'.$uniqueId.' .swiper-pagination';
 
 $mt	= 22 + ($p['display_pagination'] == 1 ? 15 : 0) + (int)$p['navigation_top'];// Minus Margin Top for arrows (22 is half of height of the arrow)
 $sa   = array();
@@ -83,7 +85,7 @@ $sa[] = ' ';
 $sa[] = 'jQuery(window).on(\'load\', function(){';
 $sa[] = '   jQuery("'.$c.'").each(function( i ) {';
 
-$sa[] = '      var swiper = new Swiper(jQuery("'.$c.'")[i], {';
+$sa[] = '      const '.$uniqueId.' = new Swiper(jQuery("'.$c.'")[i], {';
 $sa[] = '         slidesPerView: '.(int)$p['slides_per_view'].',';
 
 if ($p['autoplay_delay'] > 0) {
@@ -99,8 +101,8 @@ $sa[] = '         freeMode: true,';
 
 if ((int)$p['display_navigation'] > 0) {
 	$sa[] = '         navigation: {';
-	$sa[] = '            nextEl: jQuery(".swiper-button-next'.$bn.'")[i],';
-	$sa[] = '            prevEl: jQuery(".swiper-button-prev'.$bp.'")[i],';
+	$sa[] = '            nextEl: jQuery("'.$bn.'")[i],';
+	$sa[] = '            prevEl: jQuery("'.$bp.'")[i],';
 	$sa[] = '         },';
 }
 
@@ -148,10 +150,10 @@ $sa[] = '      });';
 $sa[] = '   });';// each
 
 if ((int)$p['display_navigation'] > 0) {
-	$sa[] = '   var height'.$k.' = jQuery("'.$c.'").height();';
+	/*$sa[] = '   var height'.$k.' = jQuery("'.$c.'").height();';
 	$sa[] = '   var height'.$k.'h = (height'.$k.' / 2) + '.$mt.';';
 	$sa[] = '   jQuery("'.$bn.'").css("margin-top", "-"+height'.$k.'h+"px");';
-	$sa[] = '   jQuery("'.$bp.'").css("margin-top", "-"+height'.$k.'h+"px");';
+	$sa[] = '   jQuery("'.$bp.'").css("margin-top", "-"+height'.$k.'h+"px");';*/
 }
 
 $sa[] = '})';
