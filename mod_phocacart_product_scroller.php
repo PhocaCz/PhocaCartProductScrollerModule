@@ -7,10 +7,16 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+
 defined('_JEXEC') or die;// no direct access
 
+
+$app = Factory::getApplication();
+
 if (!JComponentHelper::isEnabled('com_phocacart', true)) {
-	$app = JFactory::getApplication();
+
 	$app->enqueueMessage(JText::_('Phoca Cart Error'), JText::_('Phoca Cart is not installed on your system'), 'error');
 	return;
 }
@@ -18,16 +24,18 @@ if (!JComponentHelper::isEnabled('com_phocacart', true)) {
 JLoader::registerPrefix('Phocacart', JPATH_ADMINISTRATOR . '/components/com_phocacart/libraries/phocacart');
 
 
-$lang = JFactory::getLanguage();
+$lang = Factory::getLanguage();
 //$lang->load('com_phocacart.sys');
 $lang->load('com_phocacart');
 
-$document = JFactory::getDocument();
+$document = Factory::getDocument();
 $media = PhocacartRenderMedia::getInstance('main');
 $media->loadBase();
 $media->loadBootstrap();
 $media->loadSpec();
 $s = PhocacartRenderStyle::getStyles();
+
+$wa                         = $document->getWebAssetManager();
 
 
 $p['item_ordering']					= $params->get( 'item_ordering', 1 );
@@ -159,12 +167,13 @@ if ((int)$p['display_navigation'] > 0) {
 $sa[] = '})';
 $sa[] = ' ';
 
-$document->addScriptDeclaration(implode("\n", $sa));
+//$document->addScriptDeclaration(implode("\n", $sa));
+$wa->addInlineScript(implode("\n", $sa), ['version' => 'auto'], ['type' => 'module']);//, ['defer' => true]
 
 // TO DO - the following function can check publish, stock, price - this can be added to the parameters
 $products			= PhocacartProduct::getProducts(0, $p['item_limit'], $p['item_ordering'], 0, true, false, false, 0, $p['catid_multiple'], $p['featured_only'], array(0,1), '', '', true);
 $t['pathitem'] 		= PhocacartPath::getPath('productimage');
 
 
-require(JModuleHelper::getLayoutPath('mod_phocacart_product_scroller', $params->get('layout', 'default')));
+require(ModuleHelper::getLayoutPath('mod_phocacart_product_scroller', $params->get('layout', 'default')));
 ?>
