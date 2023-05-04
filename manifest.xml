@@ -23,18 +23,19 @@
 		<description><![CDATA[ Phoca Cart Product Scroller Module - a Joomla! CMS module which displays product scroll slider of Phoca Cart products. ]]></description>
 		<element>mod_phocacart_product_scroller</element>
 		<type>module</type>
-		<version>4.0.0</version>
-		<infourl title="Phoca Cart Product Scroller Module 4.0.0">https://www.phoca.cz/</infourl>
+		<version>4.0.7</version>
+		<infourl title="Phoca Cart Product Scroller Module 4.0.7">https://www.phoca.cz/</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaCartProductScrollerModule/releases/download/4.0.0/mod_phocacart_product_scroller_v4.0.0.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaCartProductScrollerModule/releases/download/4.0.7/mod_phocacart_product_scroller_v4.0.7.zip</downloadurl>
 		</downloads>
+		<sha512>6214c2f4aa1cc8446638baa8d26c21972002dee6292994b72bdd61176bc04daed12fa220f1f71778b4e92c8bac043b097dc2165dfd8d480a80001719e4eecbba</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
 		<maintainer><![CDATA[ Phoca.cz ]]></maintainer>
 		<maintainerurl>https://www.phoca.cz/</maintainerurl>
 		<section>Updates</section>
-		<targetplatform name="joomla" version="4.[0]"/>
+		<targetplatform name="joomla" version="4.[012]"/>
 		<client>site</client>
 	</update>
 </updates>
