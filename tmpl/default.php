@@ -6,12 +6,23 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
+
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Uri\Uri;
+
 defined('_JEXEC') or die;
 
-$layoutV	= new JLayoutFile('button_product_view', null, array('component' => 'com_phocacart'));
-$layoutP	= new JLayoutFile('product_price', null, array('component' => 'com_phocacart'));
-$layoutR	= new JLayoutFile('product_rating', null, array('component' => 'com_phocacart'));
+$layoutV	= new FileLayout('button_product_view', null, array('component' => 'com_phocacart'));
+$layoutP	= new FileLayout('product_price', null, array('component' => 'com_phocacart'));
+$layoutR	= new FileLayout('product_rating', null, array('component' => 'com_phocacart'));
 
+
+// Native lazy load
+$attributeLazyLoad = '';
+if ($pc['lazy_load_category_items'] == 2) {
+    $attributeLazyLoad = isset($s['a']['lazyload']) && $s['a']['lazyload'] != '' ? $s['a']['lazyload'] : '';
+}
 
 echo '<div class="phProductScrollerModuleBox ph-product-scroller-module-box'.$moduleclass_sfx .'">';
 
@@ -23,7 +34,7 @@ if (!empty($products)) {
 
 		echo '<div class="swiper-slide">';// ph-mod-product-scroller-swiper-slide
 		/*if ($v->image != '') {
-			echo '<div class="ph-brand-name"><img src="'.JURI::base(true).'/' . $v->image.'" alt="'.htmlspecialchars($v->title).'" /></div>';
+			echo '<div class="ph-brand-name"><img src="'.URI::base(true).'/' . $v->image.'" alt="'.htmlspecialchars($v->title).'" /></div>';
 		} else {
 			echo '<div class="ph-brand-name">'.$v->title.'</div>';
 		}*/
@@ -34,10 +45,11 @@ echo '<div class="'.$s['c']['thumbnail'].' ph-thumbnail ph-thumbnail-c ph-item g
 echo '<div class="ph-item-content grid">';
 
 $image = PhocacartImage::getThumbnailName($t['pathitem'], $v->image, 'medium');
-$link = JRoute::_(PhocacartRoute::getItemRoute($v->id, $v->catid, $v->alias, $v->catalias));
+$link = Route::_(PhocacartRoute::getItemRoute($v->id, $v->catid, $v->alias, $v->catalias));
 echo '<a href="'.$link.'">';
 if (isset($image->rel) && $image->rel != '') {
-	echo '<img src="'.JURI::base(true).'/'.$image->rel.'" alt="'.$v->title.'" class="'.$s['c']['img-responsive'].' ph-image"';
+	echo '<img src="'.Uri::base(true).'/'.$image->rel.'" alt="'.$v->title.'" class="'.$s['c']['img-responsive']. ' ph-image"';
+	echo ' '. $attributeLazyLoad;
 	echo ' />';
 }
 echo '</a>';

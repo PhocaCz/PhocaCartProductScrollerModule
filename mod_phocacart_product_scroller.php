@@ -7,17 +7,18 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\ModuleHelper;
-
 defined('_JEXEC') or die;// no direct access
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Helper\ModuleHelper;
 
 
 $app = Factory::getApplication();
 
-if (!JComponentHelper::isEnabled('com_phocacart', true)) {
+if (!ComponentHelper::isEnabled('com_phocacart', true)) {
 
-	$app->enqueueMessage(JText::_('Phoca Cart Error'), JText::_('Phoca Cart is not installed on your system'), 'error');
+	$app->enqueueMessage(Text::_('Phoca Cart Error'), Text::_('Phoca Cart is not installed on your system'), 'error');
 	return;
 }
 
@@ -59,8 +60,9 @@ $p['slides_per_view_576']		= $params->get( 'slides_per_view_576', 2 );
 $p['slides_per_view_768']		= $params->get( 'slides_per_view_768', 4 );
 $p['slides_per_view_992']		= $params->get( 'slides_per_view_992', 5 );
 
-$pCom								= JComponentHelper::getParams( 'com_phocacart' );
+$pCom								= ComponentHelper::getParams( 'com_phocacart' );
 $pc['display_star_rating']			= $pCom->get( 'display_star_rating', 0 );
+$pc['lazy_load_category_items']			= $pCom->get( 'lazy_load_category_items', 0 );
 
 $rights							= new PhocacartAccessRights();
 $p['can_display_price']	= $rights->canDisplayPrice();
